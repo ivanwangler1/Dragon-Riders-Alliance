@@ -12,6 +12,7 @@ import { NewsPage } from './components/NewsPage';
 import { OracleChat } from './components/OracleChat';
 import { AuthPage } from './components/AuthPage';
 import { GameStartModal } from './components/GameStartModal';
+import { AdminDashboard } from './components/AdminDashboard';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -21,7 +22,7 @@ const App: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [showGameModal, setShowGameModal] = useState(false);
   
-  const [currentView, setCurrentView] = useState<'home' | 'history' | 'classes' | 'maps' | 'bestiary' | 'store' | 'events' | 'maintenance' | 'news' | 'auth_login' | 'auth_register'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'history' | 'classes' | 'maps' | 'bestiary' | 'store' | 'events' | 'maintenance' | 'news' | 'auth_login' | 'auth_register' | 'admin'>('home');
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
@@ -132,6 +133,7 @@ const App: React.FC = () => {
       case 'news': return <NewsPage />;
       case 'auth_login': return <AuthPage initialMode="login" onBack={() => goHome()} />;
       case 'auth_register': return <AuthPage initialMode="register" onBack={() => goHome()} />;
+      case 'admin': return <AdminDashboard onExit={() => goHome()} />;
       default:
         return (
           <>
@@ -432,7 +434,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-dark-950 text-gray-200 font-sans selection:bg-gold-600 selection:text-black">
       
       {/* NAVBAR: Glassmorphism & Clean */}
-      {!currentView.startsWith('auth') && (
+      {!currentView.startsWith('auth') && currentView !== 'admin' && (
         <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-md border-b border-white/5 py-3' : 'bg-gradient-to-b from-black/90 to-transparent py-6 border-b border-transparent'}`}>
           <div className="container mx-auto px-6 flex justify-between items-center">
             
@@ -482,6 +484,12 @@ const App: React.FC = () => {
                     <span className="text-[10px] text-gold-500 font-serif uppercase tracking-widest opacity-70">Logado como</span>
                     <span className="text-sm font-serif font-bold text-white uppercase tracking-widest">{user.username}</span>
                   </div>
+                  <button 
+                    onClick={() => { setCurrentView('admin'); window.scrollTo(0,0); }}
+                    className="text-xs font-serif font-bold uppercase tracking-widest text-blue-400 hover:text-white transition-colors border border-blue-500/30 px-3 py-1 rounded hover:bg-blue-500/10"
+                  >
+                    Painel Admin
+                  </button>
                   <button 
                     onClick={handleLogout}
                     className="text-xs font-serif font-bold uppercase tracking-widest text-red-500 hover:text-white transition-colors border border-red-500/30 px-3 py-1 rounded hover:bg-red-500/10"
@@ -540,6 +548,7 @@ const App: React.FC = () => {
                           <span className="text-[10px] text-gold-500 font-serif uppercase tracking-widest opacity-70">Logado como</span>
                           <span className="text-lg font-serif font-bold text-white uppercase tracking-widest">{user.username}</span>
                         </div>
+                        <button onClick={() => { setMobileMenuOpen(false); setCurrentView('admin'); window.scrollTo(0,0); }} className="text-blue-400 text-sm uppercase tracking-widest text-left font-bold">Painel Admin</button>
                         <button onClick={handleLogout} className="text-red-500 text-sm uppercase tracking-widest text-left font-bold">Encerrar Sessão</button>
                         <Button onClick={() => { setMobileMenuOpen(false); setShowGameModal(true); }} fullWidth>Iniciar Jornada</Button>
                       </>
@@ -561,10 +570,10 @@ const App: React.FC = () => {
       
       {showGameModal && user && <GameStartModal user={user} onClose={() => setShowGameModal(false)} />}
       
-      {!currentView.startsWith('auth') && <OracleChat />}
+      {!currentView.startsWith('auth') && currentView !== 'admin' && <OracleChat />}
 
       {/* Footer */}
-      {!currentView.startsWith('auth') && (
+      {!currentView.startsWith('auth') && currentView !== 'admin' && (
         <footer className="bg-[#020202] border-t border-white/5 pt-20 pb-10">
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-4 gap-12 mb-16">

