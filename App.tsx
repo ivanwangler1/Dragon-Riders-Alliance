@@ -140,7 +140,7 @@ const App: React.FC = () => {
               {/* Background Layer */}
               <div className="absolute inset-0 z-0">
                 <img 
-                  src="https://i.postimg.cc/hGMGr4gR/Tela_principal.png" 
+                  src="https://i.postimg.cc/3x3JyRfM/01.webp" 
                   alt="Hero Background" 
                   className="w-full h-full object-cover animate-float scale-110"
                 />
@@ -150,7 +150,7 @@ const App: React.FC = () => {
 
               {/* Content Area */}
               <div className="relative z-10 w-full container mx-auto px-6 md:px-12 flex items-center h-full">
-                <div className="max-w-3xl mt-20">
+                <div className="max-w-3xl mt-4 md:mt-8">
                   
                   {/* Decorative Line */}
                   <div className="flex items-center gap-4 mb-6 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
@@ -171,7 +171,7 @@ const App: React.FC = () => {
                   </h1>
                   
                   {/* Subtitle */}
-                  <p className="text-gray-300 text-lg md:text-2xl font-serif italic font-light leading-relaxed max-w-xl mb-10 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+                  <p className="text-gray-300 text-sm md:text-base font-serif italic font-light leading-relaxed max-w-md mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                     "Quando os colossos despertam, apenas os Cavaleiros Alados podem restaurar o equilíbrio de Midellas."
                   </p>
 

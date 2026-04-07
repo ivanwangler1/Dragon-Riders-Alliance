@@ -232,13 +232,13 @@ export const BestiaryPage: React.FC = () => {
                       {/* Imagem de fundo desfocada para preencher espaços */}
                       <div 
                         className="absolute inset-0 bg-cover bg-center opacity-50 blur-xl scale-110"
-                        style={{ backgroundImage: "url('https://i.postimg.cc/MT9vTMS2/Dragão.webp')" }}
+                        style={{ backgroundImage: "url('https://i.postimg.cc/zBsGzhhH/Dragon_Red.webp')" }}
                       ></div>
                       
                       {/* Imagem Principal */}
                       <img 
                         className="absolute inset-0 w-full h-full object-contain z-10 group-hover:scale-105 transition-transform duration-700 ease-in-out"
-                        src="https://i.postimg.cc/MT9vTMS2/Dragão.webp" 
+                        src="https://i.postimg.cc/zBsGzhhH/Dragon_Red.webp" 
                         alt="Dragão de Domesticação" 
                       />
 
