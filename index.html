@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(dragon-riders-alliance)</title>
+    <link rel="icon" type="image/webp" href="https://i.postimg.cc/R04LQYSL/icowebp.webp" />
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/R04LQYSL/icowebp.webp" />
+    <!-- Mantendo Tailwind via CDN para simplicidade -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&amp;family=Cinzel:wght@400;500;700;900&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/baker-signet-bt" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['Cinzel', 'serif'],
+              decorative: ['"Cinzel Decorative"', 'serif'],
+              sans: ['Lato', 'sans-serif'],
+              baker: ['"Baker Signet BT"', 'serif'],
+            },
+            colors: {
+              gold: {
+                50: '#FFFAEB',
+                100: '#FFF9C4',
+                200: '#FFF176',
+                300: '#FFD54F',
+                400: '#FFC107',
+                500: '#FFB300', // Base Gold
+                600: '#FFA000',
+                700: '#FF8F00', // Fire Orange
+                800: '#FF6F00',
+                900: '#BF360C', // Dark Ember
+                950: '#451a03',
+              },
+              dark: {
+                950: '#050402',
+                900: '#0a0a0a',
+                850: '#121212',
+                800: '#171717',
+              }
+            },
+            dropShadow: {
+              'glow': '0 0 10px rgba(255, 179, 0, 0.5)',
+              'fire': '0 0 15px rgba(255, 69, 0, 0.6)',
+              'text-sm': '1px 1px 2px rgba(0, 0, 0, 0.8)',
+              'text-lg': '2px 2px 4px rgba(0, 0, 0, 1)',
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'fade-in-left': 'fadeInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'shine': 'shine 3s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'glow-pulse': 'glowPulse 2.5s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(40px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeInLeft: {
+                '0%': { opacity: '0', transform: 'translateX(-40px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' },
+              },
+              shine: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0.7' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-15px)' },
+              },
+              glowPulse: {
+                '0%, 100%': { 
+                  'box-shadow': '0 0 15px rgba(234, 179, 8, 0.4), inset 0 0 5px rgba(234, 179, 8, 0.2)',
+                  'filter': 'brightness(1)'
+                },
+                '50%': { 
+                  'box-shadow': '0 0 40px rgba(234, 179, 8, 0.7), inset 0 0 10px rgba(234, 179, 8, 0.4)',
+                  'filter': 'brightness(1.1)'
+                },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #050402;
+        color: #e5e5e5;
+        overflow-x: hidden;
+      }
+      
+      /* Custom Scrollbar for Webkit */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333; 
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #FFB300; 
+      }
+
+      /* Firefox Scrollbar */
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: #333 #0a0a0a;
+      }
+
+      .text-shadow-glow {
+        text-shadow: 0 0 20px rgba(255, 179, 0, 0.5);
+      }
+      
+      /* Refined Metallic Text with Cinzel Decorative */
+      .icarus-title {
+        font-family: 'Cinzel Decorative', cursive;
+        font-weight: 700;
+        text-transform: uppercase;
+        background: linear-gradient(
+          180deg, 
+          #FFFFFF 10%, 
+          #FFE082 30%, 
+          #FFB300 50%, 
+          #B45309 80%,
+          #451a03 100%
+        );
+        background-size: 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.8));
+        letter-spacing: 0.05em;
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

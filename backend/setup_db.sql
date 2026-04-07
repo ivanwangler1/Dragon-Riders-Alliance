@@ -1,0 +1,11 @@
+CREATE DATABASE RidersOfIcarus;
+GO
+USE RidersOfIcarus;
+GO
+CREATE TABLE Accounts (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+GO

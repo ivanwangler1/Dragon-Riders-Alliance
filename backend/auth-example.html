@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(dragon-riders-alliance) | Portal de Acesso</title>
+    <link rel="icon" type="image/webp" href="https://i.postimg.cc/R04LQYSL/icowebp.webp" />
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/R04LQYSL/icowebp.webp" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #FFB300;
+            --dark-gold: #B45309;
+            --bg-dark: #050402;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: #e5e5e5;
+            font-family: 'Lato', sans-serif;
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #050402 100%);
+        }
+        .serif-title { font-family: 'Cinzel', serif; }
+        .gold-button {
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            transition: all 0.3s ease;
+        }
+        .gold-button:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px rgba(255, 179, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 179, 0, 0.1);
+        }
+        .input-gold {
+            background: rgba(0,0,0,0.3);
+            border-bottom: 2px solid #333;
+            transition: border-color 0.3s;
+            text-transform: none !important;
+            font-family: 'Lato', sans-serif;
+        }
+        .input-gold:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+
+    <div class="w-full max-w-md glass-panel p-8 rounded-2xl shadow-2xl animate-fade-in-up">
+        
+        <div class="text-center mb-8">
+            <h1 id="form-title" class="serif-title text-3xl font-black text-white tracking-widest uppercase mb-2">Login</h1>
+            <p id="form-subtitle" class="text-xs text-gold-500 uppercase tracking-[0.3em]">Acesso ao Portal de Ellora</p>
+        </div>
+
+        <!-- FORMULÁRIO -->
+        <form id="auth-form" class="space-y-6">
+            <div id="username-group" class="relative">
+                <input type="text" name="username" required class="input-gold w-full py-2 text-white placeholder-gray-600" placeholder="Nome">
+            </div>
+
+            <div id="password-group" class="relative">
+                <input type="password" name="password" required class="input-gold w-full py-2 text-white placeholder-gray-600" placeholder="Senha">
+            </div>
+
+            <div id="confirm-password-group" class="hidden relative">
+                <input type="password" name="confirmPassword" class="input-gold w-full py-2 text-white placeholder-gray-600" placeholder="Repetir Senha">
+            </div>
+
+            <div id="email-group" class="hidden relative">
+                <input type="email" name="email" class="input-gold w-full py-2 text-white placeholder-gray-600" placeholder="E-mail">
+            </div>
+
+            <div id="age-group" class="hidden relative">
+                <input type="number" name="age" class="input-gold w-full py-2 text-white placeholder-gray-600" placeholder="Idade">
+            </div>
+
+            <button type="submit" class="gold-button w-full py-3 rounded-lg font-bold text-black uppercase tracking-widest text-sm">
+                <span id="btn-text">Entrar</span>
+            </button>
+        </form>
+
+        <div class="mt-8 text-center border-t border-white/5 pt-6">
+            <p class="text-xs text-gray-500">
+                <span id="toggle-text">Novo em Midellas?</span>
+                <button type="button" id="toggle-mode" class="text-gold-500 font-bold ml-1 hover:text-white transition-colors uppercase">Criar Conta</button>
+            </p>
+        </div>
+
+        <div id="response-msg" class="mt-4 text-center text-sm hidden"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('auth-form');
+        const toggleBtn = document.getElementById('toggle-mode');
+        const formTitle = document.getElementById('form-title');
+        const confirmPasswordGroup = document.getElementById('confirm-password-group');
+        const ageGroup = document.getElementById('age-group');
+        const btnText = document.getElementById('btn-text');
+        const toggleText = document.getElementById('toggle-text');
+        const responseMsg = document.getElementById('response-msg');
+
+        let isLogin = true;
+
+        toggleBtn.onclick = () => {
+            isLogin = !isLogin;
+            formTitle.innerText = isLogin ? 'Login' : 'Registro';
+            btnText.innerText = isLogin ? 'Entrar' : 'Iniciar Jornada';
+            toggleText.innerText = isLogin ? 'Novo em Midellas?' : 'Já possui conta?';
+            toggleBtn.innerText = isLogin ? 'Criar Conta' : 'Fazer Login';
+            
+            // Toggle visibility for registration fields
+            confirmPasswordGroup.classList.toggle('hidden');
+            emailGroup.classList.toggle('hidden');
+            ageGroup.classList.toggle('hidden');
+            
+            // Set required fields based on mode
+            const confirmInput = confirmPasswordGroup.querySelector('input');
+            const emailInput = emailGroup.querySelector('input');
+            const ageInput = ageGroup.querySelector('input');
+            
+            if (!isLogin) {
+                confirmInput.required = true;
+                emailInput.required = true;
+                ageInput.required = true;
+            } else {
+                confirmInput.required = false;
+                emailInput.required = false;
+                ageInput.required = false;
+            }
+
+            responseMsg.classList.add('hidden');
+            form.reset();
+        };
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const endpoint = isLogin ? 'login.php' : 'register.php';
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                responseMsg.innerText = result.message;
+                responseMsg.className = `mt-4 text-center text-sm block ${result.status === 'success' ? 'text-green-500' : 'text-red-500'}`;
+
+                if (result.status === 'success' && isLogin) {
+                    setTimeout(() => alert('Redirecionando para o Dashboard...'), 1000);
+                }
+            } catch (error) {
+                responseMsg.innerText = "Erro ao conectar com o servidor.";
+                responseMsg.className = "mt-4 text-center text-sm block text-red-500";
+            }
+        };
+    </script>
+</body>
+</html>
